@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
+           xmlns:cxf="http://camel.apache.org/schema/blueprint/cxf"
+           xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+           xmlns:s="http://cxf.apache.org/hello_world_soap_http"
+           xsi:schemaLocation="
+             http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+             http://camel.apache.org/schema/blueprint/cxf http://camel.apache.org/schema/blueprint/cxf/camel-cxf.xsd
+             http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+             http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.0.0.xsd
+             http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+ <!-- blueprint property placeholders -->
+  <cm:property-placeholder persistent-id="my-placeholders">
+    <cm:default-properties>
+      <cm:property name="router.address" value="http://localhost:9000/routerEndpoint" />
+      <cm:property name="service.address" value="http://localhost:8000/serviceEndpoint" />
+      <cm:property name="test.address" value="http://localhost:9000/testEndpoint" />
+      <cm:property name="bindingId" value="http://schemas.xmlsoap.org/wsdl/soap12/" />
+      <cm:property name="transportId" value="http://cxf.apache.org/transports/http" />
+      <cm:property name="serviceName" value="{http://org.apache.camel.component.cxf}myService" />
+      <cm:property name="endpointName" value="{http://org.apache.camel.component.cxf}myEndpoint" />
+      <cm:property name="wsdlURL" value="wsdl/test.wsdl" />
+    </cm:default-properties>
+  </cm:property-placeholder>
+  
+  <cxf:cxfEndpoint id="routerEndpoint" address="/CxfMtomRouterPayloadModeTest/jaxws-mtom/hello"
+         wsdlURL="META-INF/wsdl/order.wsdl"
+         serviceName="ns:OrderEndpointService"
+         endpointName="ns:OrderService"
+         xmlns:ns="http://order.camelinaction">
+   	 <cxf:properties>
+      <entry key="dataFormat" value="PAYLOAD"/>
+    </cxf:properties>
+  </cxf:cxfEndpoint>
+  
+
+  <camelContext trace="false" id="blueprintContext" xmlns="http://camel.apache.org/schema/blueprint">
+    <route id="timerToLog">
+        <from uri="cxf:bean:routerEndpoint"/>
+        <log message="The message contains ${body}"/>
+        <to uri="mock:result"/>
+    </route>
+</camelContext>
+
+</blueprint>
