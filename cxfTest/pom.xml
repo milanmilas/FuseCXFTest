@@ -67,11 +67,20 @@
   </pluginRepositories>
 
   <dependencies>
+        <!-- assuming camel is pulling aries 1.0.0, pull asm 4.0 first -->
+     <dependency>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm-all</artifactId>
+      <version>4.0</version>
+      <scope>test</scope>
+    </dependency>
+    
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>
       <version>2.10.0.fuse-71-047</version>
     </dependency>
+    
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-blueprint</artifactId>
@@ -84,16 +93,19 @@
       <artifactId>slf4j-api</artifactId>
       <version>1.6.6</version>
     </dependency>
+    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.6.6</version>
     </dependency>
+    
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>jcl-over-slf4j</artifactId>
       <version>1.6.6</version>
     </dependency>
+    
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -101,24 +113,47 @@
     </dependency>
 
     <!-- testing -->
+<!--          <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-test</artifactId>
+            <version>2.10.0.fuse-71-047</version>
+      <scope>test</scope>
+    </dependency> -->
+    
+<!--         <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-testutils</artifactId>
+      <version>2.6.0.fuse-71-047</version>
+      <scope>test</scope>
+    </dependency> -->
+    
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-test-blueprint</artifactId>
-      <version>2.10.0.fuse-71-047</version>
+            <version>2.10.0.fuse-71-047</version>
       <scope>test</scope>
     </dependency>
+    
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-http</artifactId>
+            <version>2.10.0.fuse-71-047</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.camel</groupId>
+      <artifactId>camel-cxf</artifactId>
+            <version>2.10.0.fuse-71-047</version>
+      <scope>test</scope>
+    </dependency>
+    
     <!-- additional dependencies  -->
-     <dependency>
+<!--      <dependency>
         <groupId>org.apache.cxf</groupId>
         <artifactId>cxf-rt-ws-addr</artifactId>
-        <version>2.0.10</version>
-      </dependency>
-
-    <dependency>
-	 <groupId>org.apache.camel</groupId>
-	 <artifactId>camel-cxf</artifactId>
-	 <version>2.10.0.fuse-71-047</version>
-	</dependency>
+        <version>2.6.0.fuse-71-047</version>
+      </dependency> -->
 		
 		<!-- for blue print properties  -->
 	<dependency>
@@ -131,35 +166,32 @@
 	 <dependency>
 		<groupId>org.apache.cxf</groupId>
 		<artifactId>cxf-rt-transports-http</artifactId>
-		<version>2.7.0</version>
+		<version>2.6.0.fuse-71-047</version>
+	</dependency> 
+	
+		 <dependency>
+		<groupId>org.apache.cxf</groupId>
+		<artifactId>cxf-rt-transports-http-jetty</artifactId>
+		<version>2.6.0.fuse-71-047</version>
 	</dependency> 
 
 <!--     <dependency>
       <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-transports-http-jetty</artifactId>
-      <version>2.6.0</version>
+      <artifactId>cxf-testutils</artifactId>
+      <version>2.7.0</version>
       <scope>test</scope>
     </dependency> -->
-            
-    <dependency>
-		<groupId>org.apache.cxf</groupId>
-		<artifactId>cxf-rt-core</artifactId>
-		<version>2.7.0</version>
-    </dependency>
     
-<dependency>
-<groupId>org.ow2.asm</groupId>
-<artifactId>asm-all</artifactId>
-<version>4.1</version>
-</dependency>
-
 <!--      <dependency>
-        <groupId>org.apache.aries.blueprint</groupId> 
-        <artifactId>org.apache.aries.blueprint</artifactId> 
-        <version>1.0.1.fuse-71-047</version>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-api</artifactId>
+        <version>2.6.0.fuse-71-047</version>
      </dependency> -->
- 
+     
+     
   </dependencies>
+
+            
 
   <build>
     <defaultGoal>install</defaultGoal>
@@ -220,7 +252,7 @@
           <instructions>
             <Bundle-SymbolicName>cxfTest</Bundle-SymbolicName>
             <Private-Package>com.mycompany.cxfTest.*</Private-Package>
-            <Import-Package>*</Import-Package>
+            <Import-Package>*,org.apache.camel.osgi</Import-Package>
           </instructions>
         </configuration>
       </plugin>

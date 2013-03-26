@@ -27,15 +27,19 @@
     </cm:default-properties>
   </cm:property-placeholder>
   
-  <cxf:cxfEndpoint id="routerEndpoint" address="/CxfMtomRouterPayloadModeTest/jaxws-mtom/hello"
+  <cxf:cxfEndpoint id="routerEndpoint" address="http://localhost:8678/CxfMtomRouterPayloadModeTest/jaxws-mtom/hello"
          wsdlURL="META-INF/wsdl/order.wsdl"
          serviceName="ns:OrderEndpointService"
          endpointName="ns:OrderService"
          xmlns:ns="http://order.camelinaction">
-   	 <cxf:properties>
+         <cxf:properties>
       <entry key="dataFormat" value="PAYLOAD"/>
     </cxf:properties>
   </cxf:cxfEndpoint>
+  
+<!--      	 <cxf:properties>
+      <entry key="dataFormat" value="PAYLOAD"/>
+    </cxf:properties> -->
   
 
   <camelContext trace="false" id="blueprintContext" xmlns="http://camel.apache.org/schema/blueprint">
@@ -43,6 +47,11 @@
         <from uri="cxf:bean:routerEndpoint"/>
         <log message="The message contains ${body}"/>
         <to uri="mock:result"/>
+        <camel:transform>
+        	<camel:simple>
+        	 	<![CDATA[<ord:resultCode  xmlns:ord="http://order.camelinaction">OK</ord:resultCode>]]>
+        	</camel:simple>
+        </camel:transform>
     </route>
 </camelContext>
 

@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1364208729846
+Bnd-LastModified: 1364298769117
 Build-Jdk: 1.6.0_37
 Built-By: milan.milas
 Bundle-ManifestVersion: 2
@@ -10,7 +10,7 @@ Created-By: Apache Maven Bundle Plugin
 Export-Package: camelinaction.order;uses:="javax.xml.bind.annotation,jav
  ax.xml.bind,javax.xml.namespace,javax.jws.soap,javax.jws,javax.xml.ws";
  version="1.0.0.SNAPSHOT",com.mycompany.cxfTest;version="1.0.0.SNAPSHOT"
-Import-Package: javax.jws;version="[2.0,3)",javax.jws.soap;version="[2.0
- ,3)",javax.xml.bind,javax.xml.bind.annotation,javax.xml.namespace,javax
- .xml.ws,org.osgi.service.blueprint;version="[1.0.0,2.0.0)"
+Import-Package: javax.jws,javax.jws.soap,javax.xml.bind,javax.xml.bind.a
+ nnotation,javax.xml.namespace,javax.xml.ws,org.apache.camel.osgi,org.os
+ gi.service.blueprint;version="[1.0.0,2.0.0)"
 Tool: Bnd-1.50.0
